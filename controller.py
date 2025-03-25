@@ -6,11 +6,12 @@ from stationqueue import StationQueue
 
 class Controller:
 	def __init__(self):
+		self.testN = 0 ;
 		self.board = Board()
 		self.pump = Pump(2,1)
 		self.stations = Stations()
 		self.queued = StationQueue()
-		self.checkForStationsToRun()
+		self.systemLoop()
 		
 	def test(self):
 		self.pump.turnOn()
@@ -18,4 +19,12 @@ class Controller:
 		self.pump.turnOff()
 		
 	def checkForStationsToRun(self):
-		self.queued.addStation(self.stations.getStations()[0])
+		if (self.testN == 0):
+			self.queued.addStation(self.stations.getStations()[0])
+		self.testN+=1
+
+	def systemLoop(self):
+		print("controller loop")
+		self.checkForStationsToRun()
+		time.sleep(10)
+		self.systemLoop()

@@ -8,12 +8,12 @@ class DataFile:
       self.piRootDirectory = ""
 
   def readFile(self):
-    f = open(self.fileName,"r")
+    f = open(self.piRootDirectory+self.fileName,"r")
     contents = f.read()
     f.close()
     return contents
 
   def writeFile(self,content):
-    f = open(self.fileName,"w")
+    f = open(self.piRootDirectory+self.fileName,"w")
     f.write(content)
     f.close()
