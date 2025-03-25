@@ -6,7 +6,11 @@ class Station:
 		self.runTime = runTime
 		self.lastRun = lastRun
 		self.runAfter = runAfter
+		self.gpm = 20
 		
+	def getName(self):
+		return self.name
+	
 	def runStation(self):
 		print("run station ")
 	
@@ -14,7 +18,10 @@ class Station:
 		return True
 		
 	def getZone(self):
-		return self.zone
+		return self.pipeZone
 		
 	def getRunTime(self):
 		return self.runTime
+	
+	def getUsage(self):
+		return self.gpm
