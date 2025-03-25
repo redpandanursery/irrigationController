@@ -11,7 +11,6 @@ class Controller:
 		self.pump = Pump(2,1)
 		self.stations = Stations()
 		self.queued = StationQueue()
-		self.systemLoop()
 		
 	def test(self):
 		self.pump.turnOn()
@@ -29,5 +28,5 @@ class Controller:
 		print("controller loop")
 		self.checkForStationsToRun()
 		self.queued.loop()
-		time.sleep(10)
-		self.systemLoop()
+		#time.sleep(10)
+		#timer = threading.Timer(10,self.systemLoop)
