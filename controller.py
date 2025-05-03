@@ -10,7 +10,10 @@ class Controller:
 		self.board = Board()
 		self.pump = Pump(2,1)
 		self.stations = Stations()
-		self.queued = StationQueue()
+		self.queued = StationQueue(self.pump)
+
+	def getPumpObj(self):
+		return self.pump
 		
 	def test(self):
 		self.pump.turnOn()
@@ -18,11 +21,16 @@ class Controller:
 		self.pump.turnOff()
 		
 	def checkForStationsToRun(self):
+		for station in self.stations.getStations():
+			if (station.isTimeToRunNow()):
+				self.queued.addStation(station)
+		"""
 		if (self.testN == 0):
 			self.queued.addStation(self.stations.getStations()[0])
 			self.queued.addStation(self.stations.getStations()[1])
 			self.queued.addStation(self.stations.getStations()[2])
 		self.testN+=1
+		"""
 
 	def systemLoop(self):
 		print("controller loop")

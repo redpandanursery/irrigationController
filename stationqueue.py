@@ -1,10 +1,28 @@
 from datetime import datetime
+import tkinter as tk
 
 class StationQueue:
-	def __init__(self):
+	def __init__(self,pump):
 		self.stationsInQueue = []
+		self.pump = pump
+
+	def getRunningDisplay(self):
+		content = ""
+		for station in self.stationsInQueue:
+			
+			if (station['running']):
+				content = content + station['stationObj'].getName() + " \n"
+		return content
+	
+	def getQueuedDisplay(self):
+		content = ""
+		for station in self.stationsInQueue:
+			if (station['running'] == False):
+				content = content + station['stationObj'].getName() + "\n"
+		return content
 
 	def addStation(self,stationObj):
+		stationObj.saveRunTime()
 		runObj = {"stationObj":stationObj,"runTime":stationObj.getRunTime(),"startTime":False,"running":False}
 		self.stationsInQueue.append(runObj)
 		#self.runStation(runObj)
@@ -12,6 +30,7 @@ class StationQueue:
 	def runStation(self,stationObj):
 		stationObj["running"] = True
 		stationObj["startTime"] = datetime.now()
+		stationObj["stationObj"].runStation()
 		print("running station "+stationObj["stationObj"].getName())
 
 	def stopStation(self,stationObj):
@@ -19,17 +38,27 @@ class StationQueue:
 		print("stopping station "+stationObj["stationObj"].getName())
 
 	def loop(self):
-		self.lookForStationsThatAreDone()
-		self.lookForStationsToRun()
+		stationsDoneQnty = self.lookForStationsThatAreDone() #returns qnty of stations turned off
+		stationsRunningQnty = self.lookForStationsToRun() #returns gpm qnty of stations running
+
+		if (stationsDoneQnty > 0 and stationsRunningQnty == 0):
+			self.pump.turnOff() #only turn off the pump if stations were running and ended this cycle, otherwise it will turn off the pump when running manually
+		
+		if (self.pump.getIsOn() == False and stationsRunningQnty > 0):
+			self.pump.turnOn(stationsRunningQnty)
+
+		self.pump.setUsage(stationsRunningQnty)
 
 	def lookForStationsThatAreDone(self):
 		#stop stations that are done
+		stationsTurnedOff = 0
 		for station in self.stationsInQueue:
 			if (station["running"] == True):
 				totalRunTime = datetime.now() - station["startTime"]
 				runTimeInMinutes = totalRunTime.total_seconds()/60
 				if (runTimeInMinutes >= station["runTime"]):
 					self.stopStation(station)
+					stationsTurnedOff += 1
 
 		#remove stations that are done from the queue list
 		newStationList = []
@@ -40,8 +69,9 @@ class StationQueue:
 			else:
 				newStationList.append(station)
 		self.stationsInQueue = newStationList
+		return stationsTurnedOff
 
-	def lookForStationsToRun(self):
+	def lookForStationsToRun(self):	
 		capacityTracker = {
 			"pipeZone1" : {
 				"capacity" : 25,
@@ -72,5 +102,12 @@ class StationQueue:
 					self.runStation(station)
 					capacityTracker[zoneReference]["running"] += gpm
 
+
+		
+		#run the pump controls
+		totalCapacityRequired = capacityTracker["pipeZone1"]["running"] + capacityTracker["pipeZone2"]["running"]
+
 		print("usage of zone 1: "+str(capacityTracker["pipeZone1"]["running"]))
 		print("usage of zone 2: "+str(capacityTracker["pipeZone2"]["running"]))
+
+		return totalCapacityRequired

@@ -1,1 +1,1 @@
-this is the station file content
+{"1":{"pin":1,"name":"Upper Pig Barn","pipeZone":1,"runTime":1,"runAfter":".15","gpm":20},"2":{"pin":2,"name":"Golden Vivax Overhead Area","pipeZone":1,"runTime":1,"runAfter":".15","gpm":12},"3":{"pin":3,"name":"West Lower Overhead","pipeZone":2,"runTime":1,"runAfter":".17","gpm":15}}
