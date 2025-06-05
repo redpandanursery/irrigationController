@@ -3,22 +3,26 @@ from pump import Pump
 from stations import Stations
 from board import Board
 from stationqueue import StationQueue
+from mister import Mister
 
 class Controller:
 	def __init__(self):
 		self.testN = 0 ;
 		self.board = Board()
-		self.pump = Pump(2,1)
-		self.stations = Stations()
+		self.pump = Pump(2,1,self.board)
+		self.stations = Stations(self.board)
 		self.queued = StationQueue(self.pump)
+		self.mister = Mister(self.board)
 
 	def getPumpObj(self):
 		return self.pump
+	
+	def runStationOnPin(self,pin,runTime):
+		station = self.stations.getStationOnPin(pin)
+		self.queued.addStation(station,runTime)
 		
 	def test(self):
-		self.pump.turnOn()
-		time.sleep(2)
-		self.pump.turnOff()
+		print('system controller working')
 		
 	def checkForStationsToRun(self):
 		for station in self.stations.getStations():
@@ -33,7 +37,6 @@ class Controller:
 		"""
 
 	def systemLoop(self):
-		print("controller loop")
 		self.checkForStationsToRun()
 		self.queued.loop()
 		#time.sleep(10)

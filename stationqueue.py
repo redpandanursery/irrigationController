@@ -21,9 +21,16 @@ class StationQueue:
 				content = content + station['stationObj'].getName() + "\n"
 		return content
 
-	def addStation(self,stationObj):
-		stationObj.saveRunTime()
-		runObj = {"stationObj":stationObj,"runTime":stationObj.getRunTime(),"startTime":False,"running":False}
+	def addStation(self,stationObj,runTime=""):
+		if (runTime != ""):
+			calculatedRunTime = float(runTime)
+		else:
+			calculatedRunTime = stationObj.getRunTime()
+
+		if ((calculatedRunTime / stationObj.getRunTime()) > .6):
+			stationObj.saveRunTime()
+
+		runObj = {"stationObj":stationObj,"runTime":calculatedRunTime,"startTime":False,"running":False}
 		self.stationsInQueue.append(runObj)
 		#self.runStation(runObj)
 		
@@ -31,11 +38,9 @@ class StationQueue:
 		stationObj["running"] = True
 		stationObj["startTime"] = datetime.now()
 		stationObj["stationObj"].runStation()
-		print("running station "+stationObj["stationObj"].getName())
 
 	def stopStation(self,stationObj):
 		stationObj["running"] = False
-		print("stopping station "+stationObj["stationObj"].getName())
 
 	def loop(self):
 		stationsDoneQnty = self.lookForStationsThatAreDone() #returns qnty of stations turned off
@@ -102,12 +107,7 @@ class StationQueue:
 					self.runStation(station)
 					capacityTracker[zoneReference]["running"] += gpm
 
-
-		
 		#run the pump controls
 		totalCapacityRequired = capacityTracker["pipeZone1"]["running"] + capacityTracker["pipeZone2"]["running"]
-
-		print("usage of zone 1: "+str(capacityTracker["pipeZone1"]["running"]))
-		print("usage of zone 2: "+str(capacityTracker["pipeZone2"]["running"]))
 
 		return totalCapacityRequired

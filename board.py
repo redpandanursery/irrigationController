@@ -3,4 +3,4 @@ class Board:
 		self.pins = ""
 		
 	def setPin(self,pinNumber,onOff):
-		print("run pin "+pinNumber+" "+onOff)
+		print(pinNumber)

@@ -3,16 +3,16 @@ from datafile import DataFile
 import json
 
 class Station:
-	def __init__(self,stationData):
+	def __init__(self,stationData,board):
+		self.board = board
 		self.runAfter = 48 #default run after time if not provided
-		self.fields = ["pin","name","pipeZone","runTime","lastRun","runAfter","gpm"]
+		self.fields = ["pin","name","pipeZone","runTime","lastRun","runAfter","gpm","usesPump"]
 		self.processStationData(stationData)
 
 	def getRunAfter(self):
 		return float(self.runAfter)
 
 	def processStationData(self,stationData):
-		print("processing station data")
 		for field in self.fields:
 			if field in stationData:
 				setattr(self,field,stationData[field])
@@ -21,7 +21,10 @@ class Station:
 		return self.name
 	
 	def runStation(self):
-		print("run station "+self.name)
+		self.board.setPin(self.properties.pin,"HIGH")
+
+	def stopStation(self):
+		self.board.setPin(self.properties.pin,"LOW")
 
 	def saveRunTime(self):
 		currentRunTime = datetime.now()
@@ -33,7 +36,10 @@ class Station:
 	def getLastRunTime(self):
 		lastRunFileObj = DataFile("lastrun.txt")
 		lastRunJSON = json.loads(lastRunFileObj.readFile())
-		timeString = lastRunJSON[str(self.pin)]
+		if str(self.pin) in lastRunJSON:
+			timeString = lastRunJSON[str(self.pin)]
+		else:
+			timeString = "2025-01-01 00:00:00"
 		return datetime.strptime(timeString, "%Y-%m-%d %H:%M:%S")
 	
 	def getHoursSinceLastRun(self):
@@ -49,12 +55,15 @@ class Station:
 		duration = self.getHoursSinceLastRun()
 		duration_in_h = round(duration.total_seconds() / 3600,3)
 		return duration_in_h >= self.getRunAfter()
+	
+	def getPin(self):
+		return self.pin
 		
 	def getZone(self):
 		return self.pipeZone
 		
 	def getRunTime(self):
-		return self.runTime
+		return float(self.runTime)
 	
 	def getUsage(self):
-		return self.gpm
+		return float(self.gpm)

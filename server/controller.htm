@@ -1,0 +1,126 @@
+<html>
+  <head>
+    <title>Irrigation Controller</title>
+    <script src="../jquery.js"></script>
+    <script src="station.js"></script>
+    <script src="stationList.js"></script>
+    <script src="controller.js"></script>
+    <script src="save.js"></script>
+    <script src="queue.js"></script>
+    <script src="chartItem.js"></script>
+    <script src="usageChart.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <style type="text/css">
+      body {
+        font-family: Poppins, sans-serif;
+        font-size: .875rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #525f7f;
+        text-align: left;
+        background-color: #1e1e2f;
+      }
+
+      .sidebar {
+        background: #ba54f5;
+        background: -webkit-linear-gradient(0deg, #5e72e4 0%, #3950d2 100%);
+        background: -o-linear-gradient(0deg,#ba54f5 0%,#e14eca 100%);
+        background: -moz-linear-gradient(0deg,#ba54f5 0%,#e14eca 100%);
+        background: linear-gradient(0deg, #5e72e4, #3950d2);
+        height: calc(100vh - 30px);
+        width: 230px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        background-size: cover;
+        background-position: center center;
+        display: block;
+        box-shadow: 0 0 45px #0009;
+        margin-top: 15px;
+        margin-left: 15px;
+        border-radius: 5px;
+        transition: .5s cubic-bezier(.685,.0473,.346,1);
+        color:white;
+        padding-top:5px;
+      }
+
+      .stationbutton {
+        padding-left:20px;padding-right:10px;
+        padding-top:10px;
+        padding-bottom:10px;
+        color:#d1d1d1;
+        cursor:pointer;
+      }
+
+      .stationbutton:hover {
+        background-color:#6a6af8;
+      }
+
+      .card {
+        background: #27293d;
+        border: 0;
+        position: relative;
+        color:#cec9c9;
+        margin-bottom: 30px;
+        box-shadow: 0 1px 20px #0000001a;
+        padding:6px;
+        border-radius:4px;
+        font-size:11pt;
+      }
+
+      .card td {
+        color: #cec9c9 ;
+      }
+
+      .card input {
+        font-size:smaller;
+        box-shadow: 2px 2px 6px #0006;
+        color: #fff;
+        background-color: #e14eca;
+        border: 0px;
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        font-family: sans-serif;
+        font-weight: 700;
+        border-radius: 9px;
+        cursor: pointer;
+        margin-top: 5px;
+        margin-bottom: 5px;
+      }
+
+      .chartline {
+        cursor:pointer;
+      }
+
+      .chartline:hover {
+        background-color:#363957;
+      }
+
+      .timebar, .runball, .graphlabel {
+        transition: 2s;
+      }
+
+      .card input:hover {
+        background-color:#f45cdd ;
+      }
+
+      .label {
+        color:#5e72e4;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sidebar"><div class="stationlist"></div></div>
+    <div style="padding-left:250px;padding-top:7px;">
+      <div class="card usagechart"></div>
+      <div class="card editstation" style="float:left;width:450px;"></div>
+      <div class="card queue" style="float:left;width:450px;margin-left:15px;"></div>
+    </div>
+  </body>
+  <script type="text/javascript">
+    const controller = new Controller() ;
+  </script>
+</html>

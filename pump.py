@@ -1,10 +1,11 @@
 class Pump:
-	def __init__(self,stationCapacity,pinNumber):
+	def __init__(self,stationCapacity,pinNumber,board):
 		self.stationCapacity = stationCapacity
 		self.pinNumber = pinNumber
 		self.isOn = False
 		self.gpm = 50
 		self.gpmUsage = 0
+		self.board = board
 
 	def setUsage(self,gpm):
 		self.gpmUsage = gpm
@@ -16,12 +17,12 @@ class Pump:
 		return self.gpmUsage
 		
 	def turnOn(self,gpmUsage):
-		print("turn pump on")
+		self.board.setPin(self.pinNumber,"HIGH")
 		self.isOn = True
 		self.gpmUsage = gpmUsage
 		
 	def turnOff(self):
-		print ("turn pump off")
+		self.board.setPin(self.pinNumber,"LOW")
 		self.isOn = False
 		self.gpmUsage = 0
 
