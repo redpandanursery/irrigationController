@@ -26,8 +26,7 @@ def loopControl():
       loopCount = 1
     systemController.systemLoop()
     systemDisplay.updateDisplay()
-  except:
-    print("error occured")
+  except Exception as e: print(e)
       
   timer = threading.Timer(10,loopControl)
   timer.start()

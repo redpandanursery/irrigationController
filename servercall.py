@@ -30,6 +30,5 @@ class ServerCall:
             self.systemController.runStationOnPin(manualStation['pinNumber'],manualStation['runTime'])
         else:
           status = "not json"
-    except:
-      status = "fail"
+    except Exception as e: print(e)
       
