@@ -21,7 +21,7 @@ class Station:
 		return self.name
 	
 	def runStation(self):
-		self.board.setPin(self.properties.pin,"HIGH")
+		self.board.setPin(self.pin,"HIGH")
 
 	def stopStation(self):
 		self.board.setPin(self.properties.pin,"LOW")
