@@ -24,7 +24,7 @@ class Station:
 		self.board.setPin(self.pin,"HIGH")
 
 	def stopStation(self):
-		self.board.setPin(self.properties.pin,"LOW")
+		self.board.setPin(self.pin,"LOW")
 
 	def saveRunTime(self):
 		currentRunTime = datetime.now()
