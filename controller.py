@@ -1,14 +1,14 @@
 import time
 from pump import Pump
 from stations import Stations
-from board import Board
+from boardcontrol import BoardControl
 from stationqueue import StationQueue
 from mister import Mister
 
 class Controller:
 	def __init__(self):
 		self.testN = 0 ;
-		self.board = Board()
+		self.board = BoardControl()
 		self.pump = Pump(2,1,self.board)
 		self.stations = Stations(self.board)
 		self.queued = StationQueue(self.pump)
