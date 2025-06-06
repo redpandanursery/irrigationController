@@ -25,8 +25,8 @@ class ChartItem {
     let lastDateObj = new Date() ;
     lastDateObj.setHours(lastDateObj.getHours() - this.getLastRun()) ;
 
-    let lastRunTime = lastDateObj.getDate()+"/"+lastDateObj.getHours()+":"+lastDateObj.getMinutes() ;
-    let nextRunTime = nextDateObj.getDate()+"/"+nextDateObj.getHours()+":"+nextDateObj.getMinutes() ;
+    let lastRunTime = lastDateObj.getDate()+"@"+lastDateObj.getHours() ;
+    let nextRunTime = nextDateObj.getDate()+"@"+nextDateObj.getHours() ;
 
     this.timeBar.find(".barlast").html("<div style='position: absolute; width: 100; font-size: 7pt; margin-top: -8px; margin-left: 17px;'>"+lastRunTime+"</div>") ;
     this.timeBar.find(".barnext").html("<div style='position: absolute; width: 100; font-size: 7pt; margin-top: -8px; margin-left: -38px;'>"+nextRunTime+"</div>") ;
