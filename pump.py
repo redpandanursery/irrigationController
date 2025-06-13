@@ -30,14 +30,14 @@ class Pump:
 
 		
 	def turnOn(self,gpmUsage):
-		self.togglePins()
-		#self.board.setPin(self.pinNumber,"HIGH")
+		#self.togglePins()
+		self.board.setPin(self.pinNumber,"HIGH")
 		self.isOn = True
 		self.gpmUsage = gpmUsage
 		
 	def turnOff(self):
-		self.togglePins()
-		#self.board.setPin(self.pinNumber,"LOW")
+		#self.togglePins()
+		self.board.setPin(self.pinNumber,"LOW")
 		self.isOn = False
 		self.gpmUsage = 0
 

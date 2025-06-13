@@ -9,7 +9,7 @@ class Controller:
 	def __init__(self):
 		self.testN = 0 ;
 		self.board = BoardControl()
-		self.pump = Pump(2,26,self.board)
+		self.pump = Pump(1,26,self.board)
 		self.stations = Stations(self.board)
 		self.queued = StationQueue(self.pump)
 		self.mister = Mister(self.board)
