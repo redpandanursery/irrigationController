@@ -41,6 +41,7 @@ class StationQueue:
 
 	def stopStation(self,stationObj):
 		stationObj["running"] = False
+		stationObj["stationObj"].stopStation()
 
 	def loop(self):
 		stationsDoneQnty = self.lookForStationsThatAreDone() #returns qnty of stations turned off
