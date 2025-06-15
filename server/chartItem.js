@@ -22,7 +22,7 @@ class ChartItem {
     let lastDateObj = controller.stations.getLastDateRunObjByPin(this.station.properties.pin) ;
 
     let nextDateObj = controller.stations.getLastDateRunObjByPin(this.station.properties.pin) ;
-    nextDateObj.setHours(nextDateObj.getHours() + controller.stations.getHoursSinceLastRunByPin(this.station.properties.pin));
+    nextDateObj.setHours(nextDateObj.getHours() + this.station.properties.runAfter*1);
 
     //let lastDateObj = new Date() ;
     //lastDateObj.setHours(lastDateObj.getHours() - this.getLastRun()) ;
@@ -53,7 +53,10 @@ class ChartItem {
     return this.station.properties.runAfter*1 - this.getLastRun() ;
   }
 
-  getLastRun(){ //hours from now
-    return controller.stations.getHoursSinceLastRunByPin(this.station.properties.pin) ;
+  getLastRun(){ //hours ago
+    let now = new Date() ;
+    let lastRunObj = controller.stations.getLastDateRunObjByPin(this.station.properties.pin) ;
+    let difference = now.getTime() - lastRunObj.getTime() ;
+    return Math.round(difference/3600000) ;
   }
 }
