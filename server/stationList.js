@@ -15,6 +15,12 @@ class StationList {
     this.lastRunJson = JSON.parse(lastRunFileContents) ;
   }
 
+  getLastDateRunObjByPin(pin){
+    let lastRunDate = this.lastRunJson[pin] ; //2025-05-24 21:03:29 format
+    let lastDate = new Date(Date.parse(lastRunDate)) ;
+    return lastDate ;
+  }
+
   getHoursSinceLastRunByPin(pin){
     let lastRun = 0 ;
     if (pin in this.lastRunJson){
@@ -22,7 +28,7 @@ class StationList {
       const lastDate = new Date(Date.parse(lastRunDate)) ;
       const now = new Date();
       const timeDifference = now.getTime() - lastDate.getTime();
-      lastRun = Math.floor(timeDifference / (1000 * 60 * 60));
+      lastRun = Math.round(timeDifference / (1000 * 60 * 60),2);
     }
 
     return lastRun ;
