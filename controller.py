@@ -12,7 +12,7 @@ class Controller:
 		self.pump = Pump(2,1,self.board)
 		self.stations = Stations(self.board)
 		self.queued = StationQueue(self.pump)
-		self.mister = Mister(self.board)
+		#self.mister = Mister(self.board)
 
 	def getPumpObj(self):
 		return self.pump

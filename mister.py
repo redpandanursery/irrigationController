@@ -8,9 +8,9 @@ class Mister():
     self.sunSet = 21
     self.runAtNight = False
     self.board = board
-    self.pin = 27
-    self.mistSeconds = 10
-    self.defaultInterval = 10
+    self.pin = 7
+    self.mistSeconds = 7
+    self.defaultInterval = 7
     timer = threading.Timer(20,self.loop)
     timer.start()
 
@@ -36,7 +36,7 @@ class Mister():
     hour = self.getHour()
     if (self.runAtNight == True or (hour >= self.sunRise and hour <= self.sunSet)):
       self.board.setPin(self.pin,"HIGH")
-      print("mist")
+      
       time.sleep(self.mistSeconds)
       self.board.setPin(self.pin,"LOW")
 
