@@ -4,6 +4,7 @@ class UsageChart {
     this.chartItems = [] ;
     this.textLeftWidth = 200 ;
     this.pixelsPerHour = 5 ;
+    this.stats = $("<div></div>") ;
     setTimeout(function(){controller.usageChart.buildChart()},500) ;
   }
 
@@ -35,6 +36,8 @@ class UsageChart {
     //update scale
     this.lastDayScale.css("left",this.textLeftWidth + (this.getChartWidth()/2) - 9 - 24*this.pixelsPerHour) ;
     this.nextDayScale.css("left",this.textLeftWidth + (this.getChartWidth()/2) - 9 + 24*this.pixelsPerHour) ;
+
+    this.stats.html("GPD: "+this.getGPD()) ;
   }
 
   buildChart(){
@@ -54,6 +57,16 @@ class UsageChart {
     this.chartScale.append(this.lastDayScale) ;
     this.chartScale.append(this.nextDayScale) ;
     this.jObj.append(this.chartScale) ;
+    this.jObj.append(this.stats) ;
     this.updateChart() ;
+  }
+
+  getGPD(){
+    let gpd = 0 ;
+    for(const station of controller.stations.stations){
+      gpd += station.getGallonsPerDay() ;
+    }
+
+    return gpd ;
   }
 }
