@@ -13,6 +13,17 @@ class Station {
     this.buildHtmlObj() ;
   }
 
+  getGallonsPerDay(){
+    return  Math.round(this.getGallonsPerRun() / this.properties.runAfter * 24,2) ;
+  }
+
+  getGallonsPerRun(){
+    if (this.properties.gpm == "0"){
+      return this.properties.runTime * 12 ; //this estimates the standard usage for zones that are not connected to the pump
+    }
+    return Math.round(this.properties.gpm * this.properties.runTime,2) ;
+  }
+
   setQueueHighlight(inQueue = false){
     this.buttonObj.css("color",(inQueue ? "#ffb121":"")) ;
   }
@@ -67,6 +78,9 @@ class Station {
     for (const property in this.properties){
       table.append("<tr><td style='min-width:150px;color:#5e72e4;' class='label'>"+property+"</td><td style='min-width:200px;'><div contenteditable='true' style='' onblur=\""+this.globalReference+".edited(this,'"+property+"')\">"+this.properties[property]+"</div></td></tr>") ;
     }
+
+    table.append($("<tr><td class='label'>GPD</td><td class='label'>"+this.getGallonsPerDay()+"</td></tr>")) ;
+    table.append($("<tr><td class='label'>GPR</td><td class='label'>"+this.getGallonsPerRun()+"</td></tr>")) ;
 
     panel.append(table) ;
   }

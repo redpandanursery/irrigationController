@@ -80,7 +80,7 @@ class StationQueue:
 	def lookForStationsToRun(self):	
 		capacityTracker = {
 			"pipeZone1" : {
-				"capacity" : 25,
+				"capacity" : 40,
 				"running" : 0
 			},
 			"pipeZone2" : {
@@ -105,8 +105,10 @@ class StationQueue:
 				gpm = station["stationObj"].getUsage()
 				zoneRemainingCapacity = capacityTracker[zoneReference]["capacity"] - capacityTracker[zoneReference]["running"]
 				if (gpm <= zoneRemainingCapacity):
-					self.runStation(station)
-					capacityTracker[zoneReference]["running"] += gpm
+					existingPumpCapacity = capacityTracker["pipeZone1"]["running"] + capacityTracker["pipeZone2"]["running"]
+					if ((existingPumpCapacity + gpm) <= self.pump.getGpmCapacity()):
+						self.runStation(station)
+						capacityTracker[zoneReference]["running"] += gpm
 
 		#run the pump controls
 		totalCapacityRequired = capacityTracker["pipeZone1"]["running"] + capacityTracker["pipeZone2"]["running"]
