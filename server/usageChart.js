@@ -48,7 +48,7 @@ class UsageChart {
       this.chartItems.push(chartItem) ;
     }
 
-    this.jObj.append("<div style='position:absolute;left:"+(this.getChartWidth() - 200)+";height:100%;top:0px;border-right:2px solid #30334c;;'></div>") ; //today bar
+    this.jObj.append("<div style='position:absolute;left:"+(this.getChartWidth()/2+190)+";height:100%;top:0px;border-right:2px solid #30334c;;'></div>") ; //today bar
 
     this.chartScale = $("<div style='border-top: 2px solid #30334c;margin-top:5px;height:25px;'></div>") ;
     this.lastDayScale = $('<div class="graphlabel" style="position: absolute;margin-top:5px;"><div style="position:absolute;border-left: 2px solid #50557a;height: 15px;margin-top: -13px;"></div><div style=" margin-left: -33px; ">-24 Hours</div></div>') ;
