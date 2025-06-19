@@ -3,7 +3,7 @@ class ChartItem {
     this.station = station ;
     this.jObj = $("<div onclick='"+this.station.globalReference+".editStation()' class='chartline' style='position:relative;z-index:10;'></div>") ;
     this.jObj.append("<div style='padding-left:3px;'>"+this.station.properties.name+"</div>");
-    this.timeBar = $("<div class='timebar' style='position: absolute;border-bottom: 3px solid #494b66;width: 0px; margin-top: -12px;'><div style='position:absolute;background-color: #cec9c9; width: 0px; height: 10px; border-radius: 9px;top:-3px;' class='runball barlast'></div><div class='runball barnext' style='position:absolute;background-color: #5e72e4; color: #5e72e4;width: 0px; height: 10px; border-radius: 9px;top:-3px;right:0px;'></div></div>");
+    this.timeBar = $("<div class='timebar' style='position: absolute;border-bottom: 3px solid #494b66;width: 0px; margin-top: -12px;'><div style='position:absolute;background-color: #cec9c9; width: 0px; height: 10px; border-radius: 3px;top:-3px;' class='runball barlast'></div><div class='runball barnext' style='position:absolute;background-color: #5e72e4; color: #5e72e4;width: 0px; height: 10px; border-radius: 3px;top:-3px;right:0px;'></div></div>");
     this.jObj.append(this.timeBar) ;
   }
 
