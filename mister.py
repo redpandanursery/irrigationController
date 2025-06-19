@@ -9,8 +9,8 @@ class Mister():
     self.runAtNight = False
     self.board = board
     self.pin = 7
-    self.mistSeconds = 7
-    self.defaultInterval = 7
+    self.mistSeconds = 4
+    self.defaultInterval = 10
     timer = threading.Timer(20,self.loop)
     timer.start()
 
