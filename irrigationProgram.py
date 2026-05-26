@@ -21,7 +21,7 @@ def loopControl():
 
   try:
     loopCount = loopCount+1
-    if loopCount % 180 == 0:
+    if loopCount % 360 == 0:
       call = ServerCall("getserverdata",systemController)
       loopCount = 1
     systemController.systemLoop()

@@ -84,7 +84,7 @@ class StationQueue:
 				"running" : 0
 			},
 			"pipeZone2" : {
-				"capacity" : 25,
+				"capacity" : 20,
 				"running" : 0
 			}
 		}

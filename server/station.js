@@ -1,7 +1,7 @@
 class Station {
   constructor(jsonObj = {}){
     this.properties = jsonObj ;
-    let requiredProperties = ["pin","name","pipeZone","runTime","runAfter","gpm","usesPump"] ;
+    let requiredProperties = ["name","pipeZone","runTime","runAfter","gpm","usesPump","pin"] ;
     for (const requiredProperty of requiredProperties){
       if (!this.properties.hasOwnProperty(requiredProperty)){
         this.properties[requiredProperty] = "" ;
@@ -75,9 +75,17 @@ class Station {
     //panel.append("this is the main body text") ;
 
     let table = $("<table border='0'></table>") ;
+    let endOfTableItems = "" ;
     for (const property in this.properties){
-      table.append("<tr><td style='min-width:150px;color:#5e72e4;' class='label'>"+property+"</td><td style='min-width:200px;'><div contenteditable='true' style='' onblur=\""+this.globalReference+".edited(this,'"+property+"')\">"+this.properties[property]+"</div></td></tr>") ;
+      let rowHtml = "<tr><td style='min-width:150px;color:#5e72e4;' class='label'>"+property+"</td><td style='min-width:200px;'><div contenteditable='true' style='' onblur=\""+this.globalReference+".edited(this,'"+property+"')\">"+this.properties[property]+"</div></td></tr>" ;
+      if (property == "pin"){
+        endOfTableItems += rowHtml ;
+      } else {
+        table.append(rowHtml) ;
+      }
     }
+
+    table.append(endOfTableItems) ;
 
     table.append($("<tr><td class='label'>GPD</td><td class='label'>"+this.getGallonsPerDay()+"</td></tr>")) ;
     table.append($("<tr><td class='label'>GPR</td><td class='label'>"+this.getGallonsPerRun()+"</td></tr>")) ;

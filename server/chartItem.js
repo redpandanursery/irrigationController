@@ -35,15 +35,14 @@ class ChartItem {
   }
 
   getSuffix(dayOfMonth){
-    let lastChar = dayOfMonth[dayOfMonth.length - 1];
+    dayOfMonth = dayOfMonth.toString() ;
+    let lastChar = dayOfMonth.charAt(dayOfMonth.length - 1);
     if (lastChar == "1"){
       return "st" ;
     } else if (lastChar == "2"){
       return "nd" ;
     } else if (lastChar == "3"){
       return "rd" ;
-    } else if (lastChar == "4"){
-      return "st" ;
     }
 
     return "th" ;
