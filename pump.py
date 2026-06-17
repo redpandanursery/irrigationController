@@ -3,7 +3,7 @@ class Pump:
 		self.stationCapacity = stationCapacity
 		self.pinNumber = pinNumber
 		self.isOn = False
-		self.gpm = 25
+		self.gpm = stationCapacity
 		self.gpmUsage = 0
 		self.board = board
 		self.pinPosition = 0 #for testing pin numbers

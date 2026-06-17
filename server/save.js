@@ -32,6 +32,14 @@ class Save {
         {payload: queueJsonText},
         $.proxy(saveObj.getResponse,saveObj)
       );
+    } else if (this.saveType == "settings"){
+      let settingsJsonText = controller.settings.getJson() ;
+      let saveObj = this ;
+      $.post(
+        "index.php?page=api&method=savesettings",
+        {payload: settingsJsonText},
+        $.proxy(saveObj.getResponse,saveObj)
+      );
     }
   }
 

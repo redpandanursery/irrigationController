@@ -20,6 +20,10 @@ class ServerCall:
       if (response.status_code == 200):
         jsonResponse = json.loads(response.text)
         if (jsonResponse['status'] == "ok"):
+          #update settings
+          settingsFile = DataFile("settings.txt")
+          settingsFile.writeFile(json.dumps(jsonResponse['settings']))
+
           #update station data
           file = DataFile("stations.txt")
           file.writeFile(json.dumps(jsonResponse['stations']))

@@ -11,6 +11,9 @@ if ($page == "api"){
   if ($_GET['method'] == "savestationtext"){
     $payload = $_POST['payload'] ;
     file_put_contents("stations.txt",$payload) ;
+  } else if ($_GET['method'] == "savesettings"){
+    $payload = $_POST['payload'] ;
+    file_put_contents("settings.txt",$payload) ;
   } else if ($_GET['method'] == "savequeue"){
     $payload = $_POST['payload'] ;
     file_put_contents("queue.txt",$payload) ;
@@ -21,7 +24,7 @@ if ($page == "api"){
       $lastrun = $_POST['lastrun'] ;
       file_put_contents("lastrun.txt",$lastrun) ;
     }
-    echo '{"status":"ok","stations":'.file_get_contents("stations.txt").',"queue":'.file_get_contents("queue.txt").'}' ;
+    echo '{"status":"ok","stations":'.file_get_contents("stations.txt").',"queue":'.file_get_contents("queue.txt").',"settings":'.file_get_contents("settings.txt").'}' ;
     file_put_contents("queue.txt","[]") ;
   }
 } else {
@@ -33,6 +36,7 @@ if ($page == "api"){
     echo "<script>";
     echo "const stationFileContents = \"".preg_replace( "/\r|\n/", "",addslashes(file_get_contents("stations.txt")))."\";";
     echo "const lastRunFileContents = \"".preg_replace( "/\r|\n/", "",addslashes(file_get_contents("lastrun.txt")))."\";";
+    echo "const settingsFileContents = \"".preg_replace( "/\r|\n/", "",addslashes(file_get_contents("settings.txt")))."\";";
     echo "</script>" ;
     echo file_get_contents("controller.htm") ;
 

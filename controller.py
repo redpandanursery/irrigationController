@@ -1,18 +1,22 @@
 import time
+import json
 from pump import Pump
 from stations import Stations
 from boardcontrol import BoardControl
 from stationqueue import StationQueue
 from mister import Mister
+from datafile import DataFile
 
 class Controller:
 	def __init__(self):
 		self.testN = 0 ;
 		self.board = BoardControl()
-		self.pump = Pump(2,1,self.board)
+		self.pumps = {"smallPump":Pump(12,1,self.board),"bigPump":Pump(25,1,self.board)}
+		self.pump = self.pumps["bigPump"]
 		self.stations = Stations(self.board)
 		self.queued = StationQueue(self.pump)
 		self.mister = Mister(self.board)
+		self.settingsFile = DataFile('settings.txt')
 
 	def getPumpObj(self):
 		return self.pump
@@ -36,7 +40,11 @@ class Controller:
 		self.testN+=1
 		"""
 
+	def readSettings(self):
+		settings = json.loads(self.settingsFile.readFile())
+
 	def systemLoop(self):
+		self.readSettings()
 		self.checkForStationsToRun()
 		self.queued.loop()
 		#time.sleep(10)

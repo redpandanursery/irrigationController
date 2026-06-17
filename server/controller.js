@@ -7,6 +7,7 @@ class Controller {
     this.saving = [] ;
     this.queue = new Queue() ;
     this.usageChart = new UsageChart() ;
+    this.settings = new Settings() ;
     this.transmitSaves() ;
   }
 
