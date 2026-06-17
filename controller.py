@@ -44,7 +44,7 @@ class Controller:
 		settings = json.loads(self.settingsFile.readFile())
 
 	def systemLoop(self):
-		self.readSettings()
+		#self.readSettings()
 		self.checkForStationsToRun()
 		self.queued.loop()
 		#time.sleep(10)
