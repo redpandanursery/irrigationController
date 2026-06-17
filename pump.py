@@ -18,7 +18,7 @@ class Pump:
 		return self.gpmUsage
 	
 	def togglePins(self):
-		pins = [26,19,13,6,5,0,21,20,16,12,1,7,8,25,24,23]
+		pins = [26,19,13,6,5,0,21,20,16,12,1,7,8,25,24,23] #remaining 5 16 12 7 8
 		if (self.pinPosition > 0):
 			self.board.setPin(pins[self.pinPosition-1],"LOW")
 		self.board.setPin(pins[self.pinPosition],"HIGH")
