@@ -11,8 +11,8 @@ class Controller:
 	def __init__(self):
 		self.testN = 0 ;
 		self.board = BoardControl()
-		self.pumps = {"smallPump":Pump(12,0,self.board),"bigPump":Pump(25,1,self.board)}
-		self.pump = self.pumps["smallPump"]
+		self.pumps = {"smallpump":Pump(12,0,self.board),"bigpump":Pump(25,1,self.board)}
+		self.pump = self.pumps["smallpump"]
 		self.stations = Stations(self.board)
 		self.queued = StationQueue(self.pump)
 		self.mister = Mister(self.board)
@@ -20,6 +20,10 @@ class Controller:
 
 	def getPumpObj(self):
 		return self.pump
+	
+	def setActivePump(self,pumpName):
+		if (self.pump.getIsOn() == False):
+			self.pump = self.pumps[pumpName]
 	
 	def runStationOnPin(self,pin,runTime):
 		station = self.stations.getStationOnPin(pin)
@@ -42,9 +46,10 @@ class Controller:
 
 	def readSettings(self):
 		settings = json.loads(self.settingsFile.readFile())
+		self.setActivePump(settings.pump)
 
 	def systemLoop(self):
-		#self.readSettings()
+		self.readSettings()
 		self.checkForStationsToRun()
 		self.queued.loop()
 		#time.sleep(10)
