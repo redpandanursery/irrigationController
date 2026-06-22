@@ -101,9 +101,9 @@ class StationQueue:
 		#get existing zone usage
 		for station in self.stationsInQueue:
 			if (station["running"] == True):
-				if (station["stationObj"].getUsesPump() == True){
+				if (station["stationObj"].getUsesPump() == True):
 					isPumpRequired = True
-				}
+
 				capacityTracker["pipeZone"+str(station["stationObj"].getZone())]["running"] += station["stationObj"].getUsage()
 
 		#run stations if there is room
@@ -117,9 +117,9 @@ class StationQueue:
 					if ((existingPumpCapacity + gpm) <= self.pump.getGpmCapacity()):
 						self.runStation(station)
 						capacityTracker[zoneReference]["running"] += gpm
-						if (station["stationObj"].getUsesPump() == True){
+						if (station["stationObj"].getUsesPump() == True):
 							isPumpRequired = True
-						}
+						
 
 		#run the pump controls
 		totalCapacityRequired = capacityTracker["pipeZone1"]["running"] + capacityTracker["pipeZone2"]["running"]
