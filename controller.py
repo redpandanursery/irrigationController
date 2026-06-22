@@ -46,7 +46,8 @@ class Controller:
 
 	def readSettings(self):
 		settings = json.loads(self.settingsFile.readFile())
-		self.setActivePump(settings.pump)
+		if "pump" in settings:
+			self.setActivePump(settings.pump)
 
 	def systemLoop(self):
 		self.readSettings()
