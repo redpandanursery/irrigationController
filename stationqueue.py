@@ -5,6 +5,10 @@ class StationQueue:
 	def __init__(self,pump):
 		self.stationsInQueue = []
 		self.pump = pump
+		self.pumpRequired = False
+
+	def doStationsNeedPumpOn(self):
+		return self.pumpRequired
 
 	def getRunningDisplay(self):
 		content = ""
@@ -92,10 +96,14 @@ class StationQueue:
 		#reset running count for each zone
 		capacityTracker["pipeZone1"]["running"] = 0
 		capacityTracker["pipeZone2"]["running"] = 0
+		isPumpRequired = False
 
 		#get existing zone usage
 		for station in self.stationsInQueue:
 			if (station["running"] == True):
+				if (station["stationObj"].getUsesPump() == True){
+					isPumpRequired = True
+				}
 				capacityTracker["pipeZone"+str(station["stationObj"].getZone())]["running"] += station["stationObj"].getUsage()
 
 		#run stations if there is room
@@ -109,8 +117,12 @@ class StationQueue:
 					if ((existingPumpCapacity + gpm) <= self.pump.getGpmCapacity()):
 						self.runStation(station)
 						capacityTracker[zoneReference]["running"] += gpm
+						if (station["stationObj"].getUsesPump() == True){
+							isPumpRequired = True
+						}
 
 		#run the pump controls
 		totalCapacityRequired = capacityTracker["pipeZone1"]["running"] + capacityTracker["pipeZone2"]["running"]
+		self.pumpRequired = isPumpRequired
 
 		return totalCapacityRequired

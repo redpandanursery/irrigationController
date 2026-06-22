@@ -67,3 +67,6 @@ class Station:
 	
 	def getUsage(self):
 		return float(self.gpm)
+
+	def getUsesPump(self):
+		return self.usesPump
