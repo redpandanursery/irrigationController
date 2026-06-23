@@ -111,6 +111,7 @@ class StationQueue:
 
 		#run stations if there is room
 		for station in self.stationsInQueue:
+			print(station["stationObj"].getUsesPump())
 			if (station["running"] == False):
 				zoneReference = "pipeZone"+str(station["stationObj"].getZone())
 				gpm = station["stationObj"].getUsage()
