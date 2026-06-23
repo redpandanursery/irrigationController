@@ -1,5 +1,5 @@
 class Pump:
-	def __init__(self,stationCapacity,pinNumber,board):
+	def __init__(self,stationCapacity,pinNumber,board,chargeTime):
 		self.stationCapacity = stationCapacity
 		self.pinNumber = pinNumber
 		self.isOn = False
@@ -7,6 +7,7 @@ class Pump:
 		self.gpmUsage = 0
 		self.board = board
 		self.pinPosition = 0 #for testing pin numbers
+		self.chargeTime = chargeTime
 
 	def setUsage(self,gpm):
 		self.gpmUsage = gpm
@@ -27,7 +28,11 @@ class Pump:
 		self.pinPosition = self.pinPosition+1
 
 		
-
+	def isCharged(self):
+		return self.isOn
+	
+	def getChargeTime(self):
+		return self.chargeTime
 		
 	def turnOn(self,gpmUsage):
 		#self.togglePins()

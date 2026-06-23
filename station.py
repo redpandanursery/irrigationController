@@ -9,6 +9,9 @@ class Station:
 		self.fields = ["pin","name","pipeZone","runTime","lastRun","runAfter","gpm","usesPump"]
 		self.processStationData(stationData)
 
+	def getUsesPump(self):
+		return self.usesPump
+
 	def getRunAfter(self):
 		return float(self.runAfter)
 

@@ -11,7 +11,7 @@ class Controller:
 	def __init__(self):
 		self.testN = 0 ;
 		self.board = BoardControl()
-		self.pumps = {"smallpump":Pump(12,0,self.board),"bigpump":Pump(25,1,self.board)}
+		self.pumps = {"smallpump":Pump(12,0,self.board,5),"bigpump":Pump(25,1,self.board,2)}
 		self.pump = self.pumps["smallpump"]
 		self.stations = Stations(self.board)
 		self.queued = StationQueue(self.pump)
