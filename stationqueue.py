@@ -55,7 +55,8 @@ class StationQueue:
 			self.pump.turnOff() #only turn off the pump if stations were running and ended this cycle, otherwise it will turn off the pump when running manually
 		
 		if (self.pump.getIsOn() == False and stationsRunningQnty > 0):
-			self.pump.turnOn(stationsRunningQnty)
+			if (self.pumpRequired == True):
+				self.pump.turnOn(stationsRunningQnty)
 
 		self.pump.setUsage(stationsRunningQnty)
 
