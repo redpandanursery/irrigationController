@@ -10,7 +10,10 @@ class Station:
 		self.processStationData(stationData)
 
 	def getUsesPump(self):
-		return self.usesPump
+		if (self.usesPump == "true"):
+			return True
+		
+		return False
 
 	def getRunAfter(self):
 		return float(self.runAfter)
