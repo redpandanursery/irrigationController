@@ -111,7 +111,6 @@ class StationQueue:
 
 		#run stations if there is room
 		for station in self.stationsInQueue:
-			print(station["stationObj"].getUsesPump())
 			if (station["running"] == False):
 				zoneReference = "pipeZone"+str(station["stationObj"].getZone())
 				gpm = station["stationObj"].getUsage()
@@ -128,9 +127,5 @@ class StationQueue:
 		#run the pump controls
 		totalCapacityRequired = capacityTracker["pipeZone1"]["running"] + capacityTracker["pipeZone2"]["running"]
 		self.pumpRequired = isPumpRequired
-		if (self.pumpRequired == True):
-			print("pump required")
-		else:
-			print("pump not required")
 
 		return totalCapacityRequired

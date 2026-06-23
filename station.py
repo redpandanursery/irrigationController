@@ -10,7 +10,6 @@ class Station:
 		self.processStationData(stationData)
 
 	def getUsesPump(self):
-		print(self.usesPump)
 		if (self.usesPump == "true"):
 			return True
 		
