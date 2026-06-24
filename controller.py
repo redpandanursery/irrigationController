@@ -14,7 +14,7 @@ class Controller:
 		self.pumps = {"smallpump":Pump(12,0,self.board,5),"bigpump":Pump(25,1,self.board,2)}
 		self.pump = self.pumps["bigpump"]
 		self.stations = Stations(self.board)
-		self.queued = StationQueue(self.pump)
+		self.queued = StationQueue(self.getPumpObj)
 		self.mister = Mister(self.board)
 		self.settingsFile = DataFile('settings.txt')
 
