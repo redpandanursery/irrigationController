@@ -39,7 +39,7 @@ class StationQueue:
 		#self.runStation(runObj)
 		
 	def runStation(self,stationObj):
-		if (self.pump.isCharged == False and stationObj["stationObj"].getUsesPump()):
+		if (self.pump.isCharged() == False and stationObj["stationObj"].getUsesPump()):
 			stationObj["runTime"] = stationObj["runTime"] + self.pump.getChargeTime()
 		stationObj["running"] = True
 		stationObj["startTime"] = datetime.now()
