@@ -10,6 +10,7 @@ class Pump:
 		self.chargeTime = 7
 
 	def setPump(self,pumpSize):
+		self.turnOff()
 		if (pumpSize == "smallpump"):
 			self.pinNumber = 1
 			self.gpm = 12
