@@ -11,10 +11,10 @@ class Controller:
 	def __init__(self):
 		self.testN = 0 ;
 		self.board = BoardControl()
-		self.pumps = {"smallpump":Pump(12,0,self.board,5),"bigpump":Pump(25,1,self.board,2)}
-		self.pump = self.pumps["bigpump"]
+		#self.pumps = {"smallpump":Pump(12,0,self.board,5),"bigpump":Pump(25,1,self.board,2)}
+		self.pump = Pump(self.board)
 		self.stations = Stations(self.board)
-		self.queued = StationQueue(self.getPumpObj)
+		self.queued = StationQueue(self.pump)
 		self.mister = Mister(self.board)
 		self.settingsFile = DataFile('settings.txt')
 
@@ -23,7 +23,7 @@ class Controller:
 	
 	def setActivePump(self,pumpName):
 		if (self.pump.getIsOn() == False):
-			self.pump = self.pumps[pumpName]
+			self.pump.setPump(pumpName)
 	
 	def runStationOnPin(self,pin,runTime):
 		station = self.stations.getStationOnPin(pin)

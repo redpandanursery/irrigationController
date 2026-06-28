@@ -1,14 +1,25 @@
 class Pump:
-	def __init__(self,stationCapacity,pinNumber,board,chargeTime):
-		self.stationCapacity = stationCapacity
-		self.pinNumber = pinNumber
+	def __init__(self,board):
+		#self.stationCapacity = stationCapacity
+		self.pinNumber = 1
 		self.isOn = False
-		self.gpm = stationCapacity
+		self.gpm = 12
 		self.gpmUsage = 0
 		self.board = board
 		self.pinPosition = 0 #for testing pin numbers
-		self.chargeTime = chargeTime
+		self.chargeTime = 7
 
+	def setPump(self,pumpSize):
+		if (pumpSize == "smallpump"):
+			self.pinNumber = 1
+			self.gpm = 12
+			self.chargeTime = 7
+
+		if (pumpSize == "bigpump"):
+			self.pinNumber = 0
+			self.gpm = 25
+			self.chargeTime = 3
+	
 	def setUsage(self,gpm):
 		self.gpmUsage = gpm
 
