@@ -16,12 +16,12 @@ class Pump:
 			self.turnOff()
 		
 		if (pumpSize == "smallpump"):
-			self.pinNumber = 1
+			self.pinNumber = 0
 			self.gpm = 12
 			self.chargeTime = 7
 
 		if (pumpSize == "bigpump"):
-			self.pinNumber = 0
+			self.pinNumber = 1
 			self.gpm = 25
 			self.chargeTime = 3
 
