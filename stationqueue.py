@@ -93,12 +93,17 @@ class StationQueue:
 			"pipeZone2" : {
 				"capacity" : 20,
 				"running" : 0
+			},
+			"pipeZone3" : {
+				"capacity" : 12,
+				"running" : 0
 			}
 		}
 
 		#reset running count for each zone
 		capacityTracker["pipeZone1"]["running"] = 0
 		capacityTracker["pipeZone2"]["running"] = 0
+		capacityTracker["pipeZone3"]["running"] = 0
 		isPumpRequired = False
 
 		#get existing zone usage

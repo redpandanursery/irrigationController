@@ -1,7 +1,7 @@
 class Pump:
 	def __init__(self,board):
 		#self.stationCapacity = stationCapacity
-		self.pinNumber = 1
+		self.pinNumber = 0
 		self.isOn = False
 		self.gpm = 12
 		self.gpmUsage = 0
