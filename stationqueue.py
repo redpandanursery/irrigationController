@@ -130,7 +130,7 @@ class StationQueue:
 						
 
 		#run the pump controls
-		totalCapacityRequired = capacityTracker["pipeZone1"]["running"] + capacityTracker["pipeZone2"]["running"]
+		totalCapacityRequired = capacityTracker["pipeZone1"]["running"] + capacityTracker["pipeZone2"]["running"] + capacityTracker["pipeZone3"]["running"]
 		self.pumpRequired = isPumpRequired
 
 		return totalCapacityRequired
