@@ -45,10 +45,10 @@ class StationQueue:
 		newStationsToRepeat = []
 		if (len(self.stationsToRepeat) > 0):
 			for repeatStation in self.stationsToRepeat:
-				self.stationsInQueue.append(repeatStation.runObj)
-				remainingRepeats = repeatStation.repeat - 1
+				self.stationsInQueue.append(repeatStation["runObj"])
+				remainingRepeats = repeatStation["repeat"] - 1
 				if (remainingRepeats > 0):
-					newStationsToRepeat.append({"repeat":remainingRepeats,"runObj":repeatStation.runObj})
+					newStationsToRepeat.append({"repeat":remainingRepeats,"runObj":repeatStation["runObj"]})
 			self.stationsToRepeat = newStationsToRepeat
 
 	def runStation(self,stationObj):
