@@ -20,6 +20,11 @@ class Pump:
 			self.gpm = 12
 			self.chargeTime = 7
 
+		if (pumpSize == "mediumpump"):
+			self.pinNumber = 1
+			self.gpm = 16
+			self.chargeTime = 3
+		
 		if (pumpSize == "bigpump"):
 			self.pinNumber = 1
 			self.gpm = 25
