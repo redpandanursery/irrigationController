@@ -6,7 +6,7 @@ class Station:
 	def __init__(self,stationData,board):
 		self.board = board
 		self.runAfter = 48 #default run after time if not provided
-		self.fields = ["pin","name","pipeZone","runTime","lastRun","runAfter","gpm","usesPump"]
+		self.fields = ["pin","name","pipeZone","runTime","lastRun","runAfter","gpm","usesPump","repeat"]
 		self.processStationData(stationData)
 
 	def getUsesPump(self):
@@ -73,3 +73,6 @@ class Station:
 	
 	def getUsage(self):
 		return float(self.gpm)
+	
+	def getRepeat(self):
+		return float(self.repeat or "0")

@@ -4,6 +4,7 @@ import tkinter as tk
 class StationQueue:
 	def __init__(self,pump):
 		self.stationsInQueue = []
+		self.stationsToRepeat = []
 		self.pump = pump
 		self.pumpRequired = False
 
@@ -36,8 +37,20 @@ class StationQueue:
 
 		runObj = {"stationObj":stationObj,"runTime":calculatedRunTime,"startTime":False,"running":False}
 		self.stationsInQueue.append(runObj)
+		if (stationObj.getRepeat() > 0):
+			self.stationsToRepeat.append({"repeat":stationObj.getRepeat()-1,"runObj":runObj})
 		#self.runStation(runObj)
-		
+
+	def lookToAddRepeat(self):
+		newStationsToRepeat = []
+		if (len(self.stationsToRepeat) > 0):
+			for repeatStation in self.stationsToRepeat:
+				self.stationsInQueue.append(repeatStation.runObj)
+				remainingRepeats = repeatStation.repeat - 1
+				if (remainingRepeats > 0):
+					newStationsToRepeat.append({"repeat":remainingRepeats,"runObj":repeatStation.runObj})
+			self.stationsToRepeat = newStationsToRepeat
+
 	def runStation(self,stationObj):
 		if (self.pump.isCharged() == False and stationObj["stationObj"].getUsesPump()):
 			stationObj["runTime"] = stationObj["runTime"] + self.pump.getChargeTime()
@@ -50,6 +63,7 @@ class StationQueue:
 		stationObj["stationObj"].stopStation()
 
 	def loop(self):
+		self.lookToAddRepeat()
 		stationsDoneQnty = self.lookForStationsThatAreDone() #returns qnty of stations turned off
 		stationsRunningQnty = self.lookForStationsToRun() #returns gpm qnty of stations running
 

@@ -1,7 +1,7 @@
 class Station {
   constructor(jsonObj = {}){
     this.properties = jsonObj ;
-    let requiredProperties = ["name","pipeZone","runTime","runAfter","gpm","usesPump","pin"] ;
+    let requiredProperties = ["name","pipeZone","runTime","runAfter","gpm","usesPump","pin","repeat"] ;
     for (const requiredProperty of requiredProperties){
       if (!this.properties.hasOwnProperty(requiredProperty)){
         this.properties[requiredProperty] = "" ;
@@ -18,10 +18,14 @@ class Station {
   }
 
   getGallonsPerRun(){
-    if (this.properties.gpm == "0"){
-      return this.properties.runTime * 12 ; //this estimates the standard usage for zones that are not connected to the pump
+    let repeater = 1 ;
+    if (this.properties.repeat != ""){
+      repeater = Number(this.properties.repeat) + 1 ;
     }
-    return Math.round(this.properties.gpm * this.properties.runTime,2) ;
+    if (this.properties.gpm == "0"){
+      return this.properties.runTime * 12 * repeater; //this estimates the standard usage for zones that are not connected to the pump
+    }
+    return Math.round(this.properties.gpm * this.properties.runTime * repeater,2) ;
   }
 
   setQueueHighlight(inQueue = false){
