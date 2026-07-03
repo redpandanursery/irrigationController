@@ -38,7 +38,7 @@ class StationQueue:
 		runObj = {"stationObj":stationObj,"runTime":calculatedRunTime,"startTime":False,"running":False}
 		self.stationsInQueue.append(runObj)
 		if (stationObj.getRepeat() > 0):
-			self.stationsToRepeat.append({"repeat":stationObj.getRepeat()-1,"runObj":runObj})
+			self.stationsToRepeat.append({"repeat":stationObj.getRepeat(),"runObj":runObj})
 		#self.runStation(runObj)
 
 	def lookToAddRepeat(self):
@@ -121,8 +121,10 @@ class StationQueue:
 		isPumpRequired = False
 
 		#get existing zone usage
+		runningPins = []
 		for station in self.stationsInQueue:
 			if (station["running"] == True):
+				runningPins.append(station["stationObj"].getPin())
 				if (station["stationObj"].getUsesPump() == True):
 					isPumpRequired = True
 
@@ -131,16 +133,17 @@ class StationQueue:
 		#run stations if there is room
 		for station in self.stationsInQueue:
 			if (station["running"] == False):
-				zoneReference = "pipeZone"+str(station["stationObj"].getZone())
-				gpm = station["stationObj"].getUsage()
-				zoneRemainingCapacity = capacityTracker[zoneReference]["capacity"] - capacityTracker[zoneReference]["running"]
-				if (gpm <= zoneRemainingCapacity):
-					existingPumpCapacity = capacityTracker["pipeZone1"]["running"] + capacityTracker["pipeZone2"]["running"]
-					if ((existingPumpCapacity + gpm) <= self.pump.getGpmCapacity()):
-						self.runStation(station)
-						capacityTracker[zoneReference]["running"] += gpm
-						if (station["stationObj"].getUsesPump() == True):
-							isPumpRequired = True
+				if (station["stationObj"].getPin() not in runningPins):
+					zoneReference = "pipeZone"+str(station["stationObj"].getZone())
+					gpm = station["stationObj"].getUsage()
+					zoneRemainingCapacity = capacityTracker[zoneReference]["capacity"] - capacityTracker[zoneReference]["running"]
+					if (gpm <= zoneRemainingCapacity):
+						existingPumpCapacity = capacityTracker["pipeZone1"]["running"] + capacityTracker["pipeZone2"]["running"]
+						if ((existingPumpCapacity + gpm) <= self.pump.getGpmCapacity()):
+							self.runStation(station)
+							capacityTracker[zoneReference]["running"] += gpm
+							if (station["stationObj"].getUsesPump() == True):
+								isPumpRequired = True
 						
 
 		#run the pump controls
