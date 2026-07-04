@@ -131,9 +131,11 @@ class StationQueue:
 				capacityTracker["pipeZone"+str(station["stationObj"].getZone())]["running"] += station["stationObj"].getUsage()
 		
 		#run stations if there is room
+		print(runningPins)
 		for station in self.stationsInQueue:
 			if (station["running"] == False):
 				#only run if not already running
+				print(station["stationObj"].getPin())
 				if (station["stationObj"].getPin() not in runningPins):
 					zoneReference = "pipeZone"+str(station["stationObj"].getZone())
 					gpm = station["stationObj"].getUsage()
