@@ -38,7 +38,7 @@ class StationQueue:
 		runObj = {"stationObj":stationObj,"runTime":calculatedRunTime,"startTime":False,"running":False}
 		self.stationsInQueue.append(runObj)
 		if (stationObj.getRepeat() > 0):
-			self.stationsToRepeat.append({"repeat":stationObj.getRepeat(),"runObj":runObj})
+			self.stationsToRepeat.append({"repeat":stationObj.getRepeat(),"runObj":{"stationObj":stationObj,"runTime":calculatedRunTime,"startTime":False,"running":False}})
 		#self.runStation(runObj)
 
 	def lookToAddRepeat(self):
@@ -131,13 +131,13 @@ class StationQueue:
 				capacityTracker["pipeZone"+str(station["stationObj"].getZone())]["running"] += station["stationObj"].getUsage()
 		
 		#run stations if there is room
-		print(runningPins)
+		#print(runningPins)
 		for station in self.stationsInQueue:
 			if (station["running"] == False):
 				#only run if not already running
-				print(station["stationObj"].getPin() + " not in ")
-				print(runningPins)
-				print(int(station["stationObj"].getPin()) not in runningPins)
+				#print(station["stationObj"].getPin() + " not in ")
+				#print(runningPins)
+				#print(int(station["stationObj"].getPin()) not in runningPins)
 				if (int(station["stationObj"].getPin()) not in runningPins):
 					zoneReference = "pipeZone"+str(station["stationObj"].getZone())
 					gpm = station["stationObj"].getUsage()
