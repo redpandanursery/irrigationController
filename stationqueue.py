@@ -1,5 +1,6 @@
 from datetime import datetime
 import tkinter as tk
+import copy
 
 class StationQueue:
 	def __init__(self,pump):
@@ -38,14 +39,14 @@ class StationQueue:
 		runObj = {"stationObj":stationObj,"runTime":calculatedRunTime,"startTime":False,"running":False}
 		self.stationsInQueue.append(runObj)
 		if (stationObj.getRepeat() > 0):
-			self.stationsToRepeat.append({"repeat":stationObj.getRepeat(),"runObj":{"stationObj":stationObj,"runTime":calculatedRunTime,"startTime":False,"running":False}})
+			self.stationsToRepeat.append({"repeat":stationObj.getRepeat(),"runObj":runObj})
 		#self.runStation(runObj)
 
 	def lookToAddRepeat(self):
 		newStationsToRepeat = []
 		if (len(self.stationsToRepeat) > 0):
 			for repeatStation in self.stationsToRepeat:
-				self.stationsInQueue.append(repeatStation["runObj"])
+				self.stationsInQueue.append(copy.copy(repeatStation["runObj"]))
 				remainingRepeats = repeatStation["repeat"] - 1
 				if (remainingRepeats > 0):
 					newStationsToRepeat.append({"repeat":remainingRepeats,"runObj":repeatStation["runObj"]})
