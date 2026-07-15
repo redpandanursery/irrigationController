@@ -144,7 +144,7 @@ class StationQueue:
 					gpm = station["stationObj"].getUsage()
 					zoneRemainingCapacity = capacityTracker[zoneReference]["capacity"] - capacityTracker[zoneReference]["running"]
 					if (gpm <= zoneRemainingCapacity):
-						existingPumpCapacity = capacityTracker["pipeZone1"]["running"] + capacityTracker["pipeZone2"]["running"]
+						existingPumpCapacity = capacityTracker["pipeZone1"]["running"] + capacityTracker["pipeZone2"]["running"] + capacityTracker["pipeZone3"]["running"]
 						if ((existingPumpCapacity + gpm) <= self.pump.getGpmCapacity()):
 							runningPins.append(int(station["stationObj"].getPin()))
 							self.runStation(station)
