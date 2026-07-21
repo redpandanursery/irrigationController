@@ -39,7 +39,7 @@ class StationQueue:
 		runObj = {"stationObj":stationObj,"runTime":calculatedRunTime,"startTime":False,"running":False}
 		self.stationsInQueue.append(runObj)
 		if (stationObj.getRepeat() > 0):
-			self.stationsToRepeat.append({"repeat":stationObj.getRepeat(),"runObj":copy.copy(runObj)})
+			self.stationsToRepeat.append({"repeat":stationObj.getRepeat(),"runObj":runObj})
 		#self.runStation(runObj)
 
 	def lookToAddRepeat(self):
